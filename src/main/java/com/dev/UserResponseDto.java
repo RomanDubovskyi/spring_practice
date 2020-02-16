@@ -1,4 +1,4 @@
-package com.dev.service;
+package com.dev;
 
 public class UserResponseDto {
     private Long id;

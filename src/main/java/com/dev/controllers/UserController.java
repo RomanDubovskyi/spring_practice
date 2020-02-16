@@ -1,7 +1,7 @@
 package com.dev.controllers;
 
+import com.dev.UserResponseDto;
 import com.dev.model.User;
-import com.dev.service.UserResponseDto;
 import com.dev.service.UserService;
 
 import java.util.ArrayList;
