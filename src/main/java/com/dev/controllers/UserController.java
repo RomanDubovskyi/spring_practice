@@ -4,8 +4,8 @@ import com.dev.UserResponseDto;
 import com.dev.model.User;
 import com.dev.service.UserService;
 
-import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -40,11 +40,7 @@ public class UserController {
     @RequestMapping(value = "/", method = RequestMethod.GET)
     public List<UserResponseDto> getAllUsers() {
         List<User> users = userService.listUsers();
-        List<UserResponseDto> usersToReturn = new ArrayList<>();
-        for (User user : users) {
-            usersToReturn.add(transferUserToDto(user));
-        }
-        return usersToReturn;
+        return users.stream().map(this::transferUserToDto).collect(Collectors.toList());
     }
 
     private UserResponseDto transferUserToDto(User user) {
