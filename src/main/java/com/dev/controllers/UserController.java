@@ -24,21 +24,17 @@ public class UserController {
     @RequestMapping(value = "/inject", method = RequestMethod.GET)
     public void inject() {
         for (int i = 1; i < 5; i++) {
-            User firstUser = new User();
-            firstUser.setLogin("login " + i);
-            firstUser.setPassword("password " + i);
-            userService.add(firstUser);
+            User newUser = new User();
+            newUser.setLogin("login " + i);
+            newUser.setPassword("password " + i);
+            userService.add(newUser);
         }
     }
 
     @RequestMapping(value = "/{userId}", method = RequestMethod.GET)
     public UserResponseDto get(@PathVariable Long userId) {
         User user = userService.getById(userId);
-        UserResponseDto userDto = new UserResponseDto();
-        userDto.setId(userId);
-        userDto.setLogin(user.getLogin());
-        userDto.setPassword(user.getPassword());
-        return userDto;
+        return transferUserToDto(user);
     }
 
     @RequestMapping(value = "/", method = RequestMethod.GET)
@@ -46,12 +42,15 @@ public class UserController {
         List<User> users = userService.listUsers();
         List<UserResponseDto> usersToReturn = new ArrayList<>();
         for (User user : users) {
-            UserResponseDto userDto = new UserResponseDto();
-            userDto.setId(user.getId());
-            userDto.setPassword(user.getPassword());
-            userDto.setLogin(user.getLogin());
-            usersToReturn.add(userDto);
+            usersToReturn.add(transferUserToDto(user));
         }
         return usersToReturn;
+    }
+
+    private UserResponseDto transferUserToDto(User user) {
+        UserResponseDto userDto = new UserResponseDto();
+        userDto.setPassword(user.getPassword());
+        userDto.setLogin(user.getLogin());
+        return userDto;
     }
 }
