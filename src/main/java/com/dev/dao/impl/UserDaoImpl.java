@@ -1,7 +1,6 @@
 package com.dev.dao.impl;
 
 import com.dev.dao.UserDao;
-
 import com.dev.model.User;
 
 import java.util.List;
@@ -46,6 +45,15 @@ public class UserDaoImpl implements UserDao {
             return session.createQuery(criteriaQuery).getResultList();
         } catch (Exception e) {
             throw new RuntimeException("Can't get all Users", e);
+        }
+    }
+
+    @Override
+    public User getById(Long id) {
+        try (Session session = sessionFactory.openSession()) {
+            return session.get(User.class, id);
+        } catch (Exception e) {
+            throw new RuntimeException("Can't get user by id", e);
         }
     }
 }

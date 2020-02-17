@@ -1,7 +1,6 @@
 package com.dev.service.impl;
 
 import com.dev.dao.UserDao;
-
 import com.dev.model.User;
 import com.dev.service.UserService;
 
@@ -23,5 +22,9 @@ public class UserServiceImpl implements UserService {
 
     public List<User> listUsers() {
         return userDao.listUsers();
+    }
+
+    public User getById(Long id) {
+        return userDao.getById(id);
     }
 }
